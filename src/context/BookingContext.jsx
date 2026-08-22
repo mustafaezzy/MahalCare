@@ -22,8 +22,8 @@ export function BookingProvider({ children }) {
 
   const bookAppointment = useCallback(async (bookingDetails) => {
     const result = await saveBooking(bookingDetails);
-    // Refresh to get the latest state from Supabase
-    await refreshBookings();
+    // Fire off the refresh in the background so it doesn't delay the user seeing their token
+    refreshBookings();
     return result;
   }, [refreshBookings]);
 
