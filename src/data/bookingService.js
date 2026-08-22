@@ -74,7 +74,7 @@ export async function saveBooking(booking) {
     // Map back to camelCase
     return {
       ok: true,
-      newBooking: {
+      booking: {
         ...savedRecord,
         doctorName: savedRecord.doctor_name
       }
