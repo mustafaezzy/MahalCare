@@ -47,7 +47,7 @@ export default function Footer({ onOpenFAQ }) {
               </a>
             </li>
             <li><a href="https://wa.me/919244064277" target="_blank" rel="noopener noreferrer">WhatsApp Support</a></li>
-            <li><a href="tel:+917747848953">Emergency Helpline</a></li>
+
             <li><a href="#monthly-roster">Schedule Roster</a></li>
           </ul>
         </div>
@@ -56,13 +56,16 @@ export default function Footer({ onOpenFAQ }) {
         <div className="footer__col">
           <h4 className="footer__col-title">Contact</h4>
           <ul className="footer__contact-list">
+
             <li>
-              <Phone size={16} className="footer__contact-icon" />
-              <a href="tel:+917747848953">+91 77478 48953</a>
+              <svg viewBox="0 0 24 24" className="footer__contact-icon" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+              </svg>
+              <a href="https://wa.me/919244064277" target="_blank" rel="noopener noreferrer">+91 92440 64277</a>
             </li>
             <li>
               <Mail size={16} className="footer__contact-icon" />
-              <a href="mailto:contact@ameroids.in">contact@ameroids.in</a>
+              <a href="mailto:mahalshifaindore@gmail.com">mahalshifaindore@gmail.com</a>
             </li>
             <li>
               <MapPin size={16} className="footer__contact-icon" />

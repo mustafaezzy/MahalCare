@@ -76,6 +76,43 @@
   box-shadow: 0 0 0 3px rgba(255,255,255,0.15);
 }
 
+.nd-card__photo-wrapper {
+  position: relative;
+  cursor: pointer;
+  flex-shrink: 0;
+  border-radius: 50%;
+  overflow: hidden;
+  width: 52px;
+  height: 52px;
+  box-shadow: 0 0 0 3px rgba(255,255,255,0.15);
+}
+
+.nd-card__photo-wrapper:hover .nd-card__avatar-photo {
+  transform: scale(1.06);
+}
+
+.nd-card__photo-wrapper:hover .nd-card__photo-zoom-hint {
+  opacity: 1;
+}
+
+.nd-card__photo-wrapper .nd-card__avatar-photo {
+  box-shadow: none;
+  transition: transform 0.25s ease;
+}
+
+.nd-card__photo-zoom-hint {
+  position: absolute;
+  inset: 0;
+  background: rgba(13, 79, 79, 0.45);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  border-radius: 50%;
+}
+
 /* ── Body rows ── */
 .nd-card__body {
   padding: 0 22px;

@@ -1,5 +1,6 @@
-import React from "react";
-import { CalendarDays } from "lucide-react";
+import React, { useState } from "react";
+import { CalendarDays, ZoomIn } from "lucide-react";
+import ImageZoomModal from "../ImageZoomModal/ImageZoomModal.jsx";
 import "./NextDayDoctorCard.css";
 
 function initials(name) {
@@ -22,13 +23,15 @@ function formatDate(dateStr) {
 }
 
 export default function NextDayDoctorCard({ entry, onViewDetails, onBook }) {
+  const [isZoomed, setIsZoomed] = useState(false);
   const name      = entry?.doctorName || "Unknown Doctor";
   const specialty = entry?.specialty  || "General";
   const time      = entry?.timing     || "—";
   const date      = entry?.date       || "—";
 
   return (
-    <article className="nd-card" aria-label={`Tomorrow's doctor: ${name}`}>
+    <>
+      <article className="nd-card" aria-label={`Tomorrow's doctor: ${name}`}>
       {/* ── Header ── */}
       <div className="nd-card__header">
         <div className="nd-card__header-text">
@@ -36,7 +39,12 @@ export default function NextDayDoctorCard({ entry, onViewDetails, onBook }) {
           <span className="nd-card__brand">Mahal al Shifa</span>
         </div>
         {entry?.photo ? (
-          <img src={entry.photo} alt={name} className="nd-card__avatar-photo" />
+          <div className="nd-card__photo-wrapper" onClick={() => setIsZoomed(true)} title="Click to zoom photo">
+            <img src={entry.photo} alt={name} className="nd-card__avatar-photo" />
+            <span className="nd-card__photo-zoom-hint" aria-hidden="true">
+              <ZoomIn size={14} />
+            </span>
+          </div>
         ) : (
           <div className="nd-card__avatar" aria-hidden="true">
             {initials(name)}
@@ -77,7 +85,27 @@ export default function NextDayDoctorCard({ entry, onViewDetails, onBook }) {
         >
           Details →
         </button>
+        {onBook && (
+          <button
+            className="nd-card__btn-book"
+            onClick={(e) => {
+              e.stopPropagation();
+              onBook(entry);
+            }}
+            aria-label={`Book appointment with ${name}`}
+          >
+            <CalendarDays size={14} /> Book
+          </button>
+        )}
       </div>
     </article>
+      {isZoomed && entry?.photo && (
+        <ImageZoomModal 
+          src={entry.photo} 
+          alt={name} 
+          onClose={() => setIsZoomed(false)} 
+        />
+      )}
+    </>
   );
 }

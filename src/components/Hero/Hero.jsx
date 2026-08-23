@@ -81,8 +81,8 @@ export default function Hero({ onBookClick }) {
           </motion.div>
         </motion.div>
 
-        {/* Right: Today's Doctor Card (Only shown if a doctor is scheduled today) */}
-        {todayDoctor && (
+        {/* Right: Today's Doctor Card (or Empty State if none) */}
+        {todayDoctor ? (
           <div className="hero__art" aria-hidden="true">
             <motion.div
               className="hero__slip"
@@ -138,8 +138,23 @@ export default function Hero({ onBookClick }) {
                   <span className="hero__slip-key">Location</span>
                   <span className="hero__slip-value">Indore Saifee Nagar</span>
                 </div>
-
               </div>
+            </motion.div>
+          </div>
+        ) : (
+          <div className="hero__art" aria-hidden="true">
+            <motion.div
+              className="hero__slip"
+              initial={{ opacity: 0, scale: 0.92, y: 40 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{ type: "spring", delay: 0.6, duration: 1.2, bounce: 0.2 }}
+              style={{ rotateX: cardRotateX, rotateY: cardRotateY, x: cardTranslateX, y: cardTranslateY, transformStyle: "preserve-3d", display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '3rem 2rem', textAlign: 'center', background: '#fafff9' }}
+            >
+              <div style={{ padding: '16px', background: 'rgba(15, 118, 110, 0.1)', borderRadius: '50%', color: '#0f766e', marginBottom: '20px' }}>
+                <CalendarDays size={40} />
+              </div>
+              <h3 style={{ fontSize: '1.4rem', color: '#0a3d3d', marginBottom: '8px', fontWeight: '800', fontFamily: 'Sora, Inter, sans-serif' }}>No Doctor Today</h3>
+              <p style={{ color: '#7da3a3', fontSize: '0.95rem', lineHeight: '1.5' }}>There are no doctors scheduled for today. Please check tomorrow's schedule below.</p>
             </motion.div>
           </div>
         )}
