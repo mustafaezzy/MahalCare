@@ -127,9 +127,6 @@ Please confirm my appointment. Thank you!`;
 
             {/* Actions (Not Printed) */}
             <div className="doctor-modal__actions">
-              <button className="btn btn-secondary btn-sm doctor-modal__icon-btn" onClick={handlePrint} aria-label="Print or Save as PDF" title="Print / PDF">
-                <Printer size={18} aria-hidden="true" /> Print / Save PDF
-              </button>
               <button className="btn btn-secondary btn-sm doctor-modal__icon-btn doctor-modal__wa-btn" onClick={handleWhatsAppShare} aria-label="Share details" title="Share">
                 <Share2 size={18} aria-hidden="true" /> Share Details
               </button>

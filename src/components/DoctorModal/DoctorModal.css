@@ -153,6 +153,8 @@
 
 .doctor-modal__icon-btn {
   padding: var(--space-2);
+  flex: 1;
+  justify-content: center;
 }
 
 .doctor-modal__wa-btn {
