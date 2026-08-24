@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
-import { UploadCloud, FileSpreadsheet, CheckCircle, X, Download, RotateCcw, Camera, Edit } from "lucide-react";
+import { UploadCloud, FileSpreadsheet, CheckCircle, X, Download, RotateCcw, Camera, Edit, Trash2 } from "lucide-react";
 import * as XLSX from "xlsx";
 import { saveDirectory, loadDirectoryMeta, clearDirectory, loadDirectory } from "../../data/directoryService";
 import "../AdminUpload/AdminUpload.css"; // Reuse existing styles
@@ -113,6 +113,23 @@ export default function AdminDirectoryUpload({ onDone }) {
     reader.readAsDataURL(file);
   };
 
+  const handlePhotoRemoveForRow = (index) => {
+    setPreview((prev) => {
+      if (!prev) return prev;
+      const updatedEntries = [...prev.entries];
+      const getDoctorName = (entry) => entry.names || entry.Names || entry.name || entry.Name;
+      const targetDoctorName = getDoctorName(updatedEntries[index]);
+      
+      updatedEntries.forEach((row, i) => {
+        const currentName = getDoctorName(row);
+        if ((targetDoctorName && currentName && currentName.toLowerCase() === targetDoctorName.toLowerCase()) || i === index) {
+          row.photo = null;
+        }
+      });
+      return { ...prev, entries: updatedEntries };
+    });
+  };
+
   const onDrop = (e) => {
     e.preventDefault();
     setDragOver(false);
@@ -206,15 +223,28 @@ export default function AdminDirectoryUpload({ onDone }) {
                     <td>{e.type || e.Type || e.title || e.Title}</td>
                     <td>{e.mobile_no || e["mobile no"] || e["Mobile No"] || e.contact || e.Contact}</td>
                     <td>
-                      <label className="btn btn-ghost btn-sm" style={{ cursor: 'pointer', fontSize: '0.8rem', padding: '2px 8px', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
-                        <Camera size={13} /> {e.photo ? "Change Photo" : "Upload Photo"}
-                        <input
-                          type="file"
-                          accept="image/*"
-                          style={{ display: 'none' }}
-                          onChange={(evt) => handlePhotoUploadForRow(idx, evt.target.files?.[0])}
-                        />
-                      </label>
+                      <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                        <label className="btn btn-ghost btn-sm" style={{ cursor: 'pointer', fontSize: '0.8rem', padding: '2px 8px', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                          <Camera size={13} /> {e.photo ? "Change Photo" : "Upload Photo"}
+                          <input
+                            type="file"
+                            accept="image/*"
+                            style={{ display: 'none' }}
+                            onChange={(evt) => handlePhotoUploadForRow(idx, evt.target.files?.[0])}
+                          />
+                        </label>
+                        {e.photo && (
+                          <button
+                            type="button"
+                            className="btn btn-ghost btn-sm"
+                            style={{ color: '#ef4444', fontSize: '0.8rem', padding: '2px 8px', display: 'inline-flex', alignItems: 'center', gap: '4px', border: 'none', background: 'transparent' }}
+                            onClick={() => handlePhotoRemoveForRow(idx)}
+                            aria-label="Remove Photo"
+                          >
+                            <Trash2 size={13} /> Remove
+                          </button>
+                        )}
+                      </div>
                     </td>
                   </tr>
                 );
